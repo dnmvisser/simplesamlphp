@@ -52,33 +52,33 @@ Note: If regex is enabled, you must use the preg_match format, i.e. you have to 
 ### Examples ###
 To use this filter configure it in `config/config.php`:
 ```php
-'authproc.sp' => [
-    60 => [
-        'class' => 'authorize:Authorize',
-        'uid'   =>  [
-            '/.*@example.com/',
-            '/(user1|user2|user3)@example.edu/',
-        ],
-        'schacUserStatus' => '@urn:mace:terena.org:userStatus:' .
-        'example.org:service:active.*@',
+    'authproc.sp' => [
+        60 => [
+            'class' => 'authorize:Authorize',
+            'uid'   =>  [
+                '/.*@example.com/',
+                '/(user1|user2|user3)@example.edu/',
+            ],
+            'schacUserStatus' => '@urn:mace:terena.org:userStatus:' .
+            'example.org:service:active.*@',
+        ]
     ]
-]
 ```
 
 
 An alternate way of using this filter is to deny certain users. Or even use multiple filters to create a simple ACL, by first allowing a group of users but then denying a "black list" of users.
 
 ```php
-'authproc.sp' => [
-    60 => array[
-        'class' => 'authorize:Authorize',
-        'deny'  => TRUE,
-        'uid'   =>  [
-            '/.*@students.example.edu/',
-            '/(stu1|stu2|stu3)@example.edu/',
+    'authproc.sp' => [
+        60 => array[
+            'class' => 'authorize:Authorize',
+            'deny'  => TRUE,
+            'uid'   =>  [
+                '/.*@students.example.edu/',
+                '/(stu1|stu2|stu3)@example.edu/',
+            ]
         ]
     ]
-]
 ```
 
 The regex pattern matching can be turned off, allowing for exact attribute matching rules. This can be helpful in cases where you know what the value should be. An example of this is with the memberOf attribute or using the ldap:AttributeAddUsersGroups filter with the group attribute.
@@ -86,20 +86,20 @@ The regex pattern matching can be turned off, allowing for exact attribute match
 Additionally, some helpful instructions are shown.
 
 ```php
-'authproc.sp' => [
-    60 => [
-        'class' => 'authorize:Authorize',
-        'regex' => FALSE,
-        'group' => [
-            'CN=SimpleSAML Students,CN=Users,DC=example,DC=edu',
-            'CN=All Teachers,OU=Staff,DC=example,DC=edu',
-        ],
-        'reject_msg' => [
-            'en' => 'This service is only available to students and teachers.' .
-                'Please contact <a href="mailto:support@example.edu">support</a>.',
-            'nl' => 'Deze dienst is alleen beschikbaar voor studenten en docenten.' .
-                'Neem contact op met <a href="mailto:support@example.edu">support</a>.',
+    'authproc.sp' => [
+        60 => [
+            'class' => 'authorize:Authorize',
+            'regex' => FALSE,
+            'group' => [
+                'CN=SimpleSAML Students,CN=Users,DC=example,DC=edu',
+                'CN=All Teachers,OU=Staff,DC=example,DC=edu',
+            ],
+            'reject_msg' => [
+                'en' => 'This service is only available to students and teachers.' .
+                    'Please contact <a href="mailto:support@example.edu">support</a>.',
+                'nl' => 'Deze dienst is alleen beschikbaar voor studenten en docenten.' .
+                    'Neem contact op met <a href="mailto:support@example.edu">support</a>.',
+            ]
         ]
     ]
-]
 ```
