@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\File\Exception\CannotWriteFileException;
 use Symfony\Component\HttpFoundation\File\File;
 
 use function array_key_exists;
-use function date;
 use function file_put_contents;
 use function preg_match;
 use function preg_replace;
